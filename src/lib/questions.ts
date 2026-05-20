@@ -258,10 +258,10 @@ export const RANKS = [
   { name: "Grandmaster", min: 2500, color: "oklch(0.85 0.2 90)" },
 ] as const;
 
-export function getRank(xp: number) {
-  let r = RANKS[0];
-  for (const rank of RANKS) if (xp >= rank.min) r = rank;
-  const idx = RANKS.indexOf(r);
-  const next = RANKS[idx + 1];
-  return { current: r, next, index: idx };
+export type Rank = (typeof RANKS)[number];
+
+export function getRank(xp: number): { current: Rank; next: Rank | undefined; index: number } {
+  let idx = 0;
+  for (let i = 0; i < RANKS.length; i++) if (xp >= RANKS[i].min) idx = i;
+  return { current: RANKS[idx], next: RANKS[idx + 1], index: idx };
 }
