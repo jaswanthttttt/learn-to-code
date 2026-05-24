@@ -3,8 +3,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, Clock, Code2, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-react";
+import { Check, Clock, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-react";
 import { practiceMatches, type Lesson } from "@/lib/lessons";
+import { trackLabel } from "@/lib/tracks";
 
 export function LessonView({
   lesson,
