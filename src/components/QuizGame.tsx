@@ -198,7 +198,7 @@ export function QuizGame() {
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                    {track === "cad" ? "CAD" : "Python"} Path
+                    {trackLabel(track === "mixed" ? "python" : track)} Path
                   </h3>
                   <p className="text-xs text-muted-foreground">Each lesson is a few minutes. Lessons unlock in order.</p>
                 </div>
