@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Clock, Code2, Lightbulb, Sparkles } from "lucide-react";
-import type { Lesson } from "@/lib/lessons";
+import { Textarea } from "@/components/ui/textarea";
+import { Check, Clock, Code2, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-react";
+import { practiceMatches, type Lesson } from "@/lib/lessons";
 
 export function LessonView({
   lesson,
@@ -15,6 +17,32 @@ export function LessonView({
   onComplete: () => void;
   onBack: () => void;
 }) {
+  const [input, setInput] = useState(lesson.practice.starter ?? "");
+  const [status, setStatus] = useState<"idle" | "right" | "wrong">("idle");
+  const [showMistake, setShowMistake] = useState(false);
+
+  // Reset state when switching lessons
+  useEffect(() => {
+    setInput(lesson.practice.starter ?? "");
+    setStatus(done ? "right" : "idle");
+    setShowMistake(false);
+  }, [lesson.id, done]);
+
+  const scrollToTop = () => {
+    setShowMistake(false);
+    setStatus("idle");
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const check = () => {
+    if (practiceMatches(input, lesson.practice)) {
+      setStatus("right");
+      setShowMistake(false);
+    } else {
+      setStatus("wrong");
+    }
+  };
+
   return (
     <Card className="border-border/60 bg-card/70 p-6 backdrop-blur">
       <button onClick={onBack} className="mb-3 text-xs text-muted-foreground hover:text-foreground">
@@ -69,12 +97,87 @@ export function LessonView({
         })}
       </div>
 
-      <Button
-        onClick={onComplete}
-        className="mt-6 w-full bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-90"
-      >
-        {done ? "Lesson complete — review again" : "Mark complete (+20 XP)"}
-      </Button>
+      {/* ============ PRACTICE GATE ============ */}
+      <div className="mt-8 rounded-xl border border-accent/40 bg-accent/5 p-5">
+        <div className="mb-3 flex items-center gap-2">
+          <Lock className="h-4 w-4 text-accent" />
+          <h3 className="text-sm font-bold uppercase tracking-widest text-accent">Practice to unlock next</h3>
+        </div>
+        <p className="text-sm text-foreground/90">{lesson.practice.prompt}</p>
+
+        <Textarea
+          value={input}
+          onChange={e => {
+            setInput(e.target.value);
+            if (status !== "idle") setStatus("idle");
+          }}
+          placeholder={lesson.practice.kind === "code" ? "Type your code here..." : "Type your answer..."}
+          spellCheck={false}
+          rows={lesson.practice.kind === "code" ? 6 : 2}
+          className={`mt-3 ${lesson.practice.kind === "code" ? "font-mono text-sm" : ""} ${
+            status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""
+          }`}
+        />
+
+        {status !== "right" && (
+          <Button
+            onClick={check}
+            disabled={!input.trim()}
+            className="mt-3 w-full bg-gradient-accent text-accent-foreground shadow-glow-accent hover:opacity-90"
+          >
+            Check my answer
+          </Button>
+        )}
+
+        {status === "wrong" && (
+          <div className="mt-4 space-y-3">
+            <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-sm">
+              <span className="font-semibold text-destructive">Not quite.</span>
+              <span className="text-foreground/90">
+                You need to write the code exactly as you learned it before moving on.
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Button variant="outline" onClick={scrollToTop} className="gap-2">
+                <BookOpen className="h-4 w-4" /> Re-read the lesson
+              </Button>
+              <Button variant="outline" onClick={() => setShowMistake(s => !s)} className="gap-2">
+                <Eye className="h-4 w-4" /> {showMistake ? "Hide" : "Show me my mistake"}
+              </Button>
+            </div>
+            {showMistake && (
+              <div className="space-y-3 rounded-lg border border-border/60 bg-background/60 p-4">
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Expected answer</p>
+                  <pre className="mt-1 overflow-x-auto rounded-md border border-border/50 bg-background/80 p-3 font-mono text-xs leading-relaxed">
+                    <code>{lesson.practice.expected}</code>
+                  </pre>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Why it's wrong</p>
+                  <p className="mt-1 whitespace-pre-line text-sm text-foreground/90">{lesson.practice.hint}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {status === "right" && (
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center gap-2 rounded-lg border border-success/40 bg-success/10 p-3 text-sm">
+              <Check className="h-4 w-4 text-success" />
+              <span className="font-semibold text-success">Correct!</span>
+              <span className="text-foreground/90">You've earned this lesson.</span>
+            </div>
+            <Button
+              onClick={onComplete}
+              className="w-full bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-90"
+            >
+              {done ? "Continue" : "Claim +20 XP & unlock next →"}
+            </Button>
+          </div>
+        )}
+      </div>
     </Card>
   );
 }
@@ -123,7 +226,7 @@ export function LessonList({
                 </Badge>
               </div>
               <p className="mt-0.5 text-xs text-muted-foreground">
-                {locked ? "Complete the previous lesson to unlock" : `~${l.minutes} min read`}
+                {locked ? "Pass the previous practice to unlock" : `~${l.minutes} min read + practice`}
               </p>
             </div>
           </button>
