@@ -5,8 +5,9 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { QUESTIONS, RANKS, getRank, type Question, type Track } from "@/lib/questions";
 import { LESSONS, lessonsFor, type Lesson } from "@/lib/lessons";
+import { ALL_TRACKS, trackLabel } from "@/lib/tracks";
 import { LessonView, LessonList } from "@/components/Lessons";
-import { Check, X, Flame, Sparkles, Trophy, Code2, Ruler, BookOpen, Swords } from "lucide-react";
+import { Check, X, Flame, Sparkles, Trophy, BookOpen, Swords } from "lucide-react";
 
 type SaveState = {
   xp: number;
@@ -178,8 +179,9 @@ export function QuizGame() {
           {mode === "quiz" && (
             <TrackBtn active={track === "mixed"} onClick={() => setTrack("mixed")} label="Mixed" />
           )}
-          <TrackBtn active={track === "python"} onClick={() => setTrack("python")} label="Python" icon={<Code2 className="h-3.5 w-3.5" />} />
-          <TrackBtn active={track === "cad"} onClick={() => setTrack("cad")} label="CAD" icon={<Ruler className="h-3.5 w-3.5" />} />
+          {ALL_TRACKS.map(t => (
+            <TrackBtn key={t} active={track === t} onClick={() => setTrack(t)} label={trackLabel(t)} />
+          ))}
         </div>
 
         {/* LEARN MODE */}
@@ -196,7 +198,7 @@ export function QuizGame() {
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                    {track === "cad" ? "CAD" : "Python"} Path
+                    {trackLabel(track === "mixed" ? "python" : track)} Path
                   </h3>
                   <p className="text-xs text-muted-foreground">Each lesson is a few minutes. Lessons unlock in order.</p>
                 </div>
@@ -220,7 +222,7 @@ export function QuizGame() {
           <Card className="border-border/60 bg-card/70 p-6 backdrop-blur">
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <Badge variant="secondary" className="uppercase tracking-wider">
-                {current.track === "python" ? "Python" : "CAD"}
+                {trackLabel(current.track)}
               </Badge>
               <Badge variant="outline">{current.topic}</Badge>
               <Badge className="bg-gradient-accent text-accent-foreground">

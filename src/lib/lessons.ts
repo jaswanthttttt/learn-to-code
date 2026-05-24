@@ -309,7 +309,270 @@ export const LESSONS: Lesson[] = [
       hint: "Orthographic projection — the standard 2D view system for engineering drawings.",
     },
   },
+
+  // ============ C PATH ============
+  {
+    id: "c-l-1", track: "c", topic: "Basics", minutes: 4, title: "Hello, C",
+    blocks: [
+      { type: "text", content: "C is a small, fast, low-level language. Every C program starts in main() and you must include headers for the features you use." },
+      { type: "code", content: '#include <stdio.h>\n\nint main(void) {\n    printf("Hello, C\\n");\n    return 0;\n}' },
+      { type: "tip", content: "\\n is a newline. Every statement ends with a semicolon ;" },
+    ],
+    practice: { kind: "code", prompt: "Write the printf line that outputs:  Hello, C  followed by a newline.", expected: 'printf("Hello, C\\n");', hint: 'Use printf with the text in double quotes and end with a semicolon: printf("Hello, C\\n");' },
+  },
+  {
+    id: "c-l-2", track: "c", topic: "Variables", minutes: 4, title: "Variables & printf",
+    blocks: [
+      { type: "text", content: "Declare a variable with its type, then a name. int holds whole numbers." },
+      { type: "code", content: 'int age = 25;\nprintf("%d\\n", age);' },
+      { type: "tip", content: "%d prints an int, %f a float, %s a string." },
+    ],
+    practice: { kind: "code", prompt: "Declare an int called age set to 25 (one line, with the type and semicolon).", expected: "int age = 25;", hint: "Type first, then name, then = value, then ;  →  int age = 25;" },
+  },
+  {
+    id: "c-l-3", track: "c", topic: "Pointers", minutes: 5, title: "Pointers 101",
+    blocks: [
+      { type: "text", content: "A pointer stores the memory address of another variable. & gets an address, * follows it." },
+      { type: "code", content: 'int x = 10;\nint *p = &x;\nprintf("%d\\n", *p);  // 10' },
+    ],
+    practice: { kind: "code", prompt: "Given int x = 10; declare a pointer p that points to x.", expected: "int *p = &x;", hint: "Pointer type uses *, address-of uses &  →  int *p = &x;" },
+  },
+
+  // ============ C++ PATH ============
+  {
+    id: "cpp-l-1", track: "cpp", topic: "Basics", minutes: 4, title: "Hello, C++",
+    blocks: [
+      { type: "text", content: "C++ extends C with classes and the Standard Template Library (STL). Output uses std::cout with the << operator." },
+      { type: "code", content: '#include <iostream>\n\nint main() {\n    std::cout << "Hello, C++" << std::endl;\n    return 0;\n}' },
+    ],
+    practice: { kind: "code", prompt: "Write the single line that prints Hello, C++ followed by std::endl using std::cout.", expected: 'std::cout << "Hello, C++" << std::endl;', hint: 'std::cout, then <<, then the string in quotes, then << std::endl;' },
+  },
+  {
+    id: "cpp-l-2", track: "cpp", topic: "STL", minutes: 4, title: "std::vector",
+    blocks: [
+      { type: "text", content: "std::vector is a dynamic array. Add items with push_back, read with [] or .at()." },
+      { type: "code", content: '#include <vector>\nstd::vector<int> v;\nv.push_back(1);\nv.push_back(2);' },
+    ],
+    practice: { kind: "code", prompt: "Declare an empty std::vector<int> called v (one line).", expected: "std::vector<int> v;", hint: "std::vector<int> v;  — angle brackets hold the element type." },
+  },
+  {
+    id: "cpp-l-3", track: "cpp", topic: "OOP", minutes: 5, title: "Classes",
+    blocks: [
+      { type: "text", content: "Classes bundle data and methods. Use access specifiers public:/private:." },
+      { type: "code", content: 'class Dog {\npublic:\n    std::string name;\n    void bark() { std::cout << name << " woof\\n"; }\n};' },
+    ],
+    practice: { kind: "code", prompt: "Start a class called Dog with an opening brace (one line).", expected: "class Dog {", hint: "class keyword, capitalised name, opening brace  →  class Dog {" },
+  },
+
+  // ============ JAVA PATH ============
+  {
+    id: "java-l-1", track: "java", topic: "Basics", minutes: 5, title: "Hello, Java",
+    blocks: [
+      { type: "text", content: "Every Java program needs a class with a main method. The file name must match the public class." },
+      { type: "code", content: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, Java");\n    }\n}' },
+    ],
+    practice: { kind: "code", prompt: "Write the line that prints  Hello, Java  using System.out.println.", expected: 'System.out.println("Hello, Java");', hint: 'System.out.println("Hello, Java");  — note the semicolon.' },
+  },
+  {
+    id: "java-l-2", track: "java", topic: "Types", minutes: 4, title: "Variables",
+    blocks: [
+      { type: "text", content: "Java is statically typed. Common types: int, double, boolean, String." },
+      { type: "code", content: 'int age = 30;\nString name = "Ada";' },
+    ],
+    practice: { kind: "code", prompt: "Declare an int variable called age set to 30.", expected: "int age = 30;", hint: "Java needs the type first:  int age = 30;" },
+  },
+  {
+    id: "java-l-3", track: "java", topic: "OOP", minutes: 5, title: "Classes",
+    blocks: [
+      { type: "text", content: "Class fields go inside the class body. Constructors share the class name." },
+      { type: "code", content: 'class Dog {\n    String name;\n    Dog(String n) { this.name = n; }\n}' },
+    ],
+    practice: { kind: "code", prompt: "Start a class called Dog with an opening brace (one line).", expected: "class Dog {", hint: "class Dog {  — same idea as in many languages." },
+  },
+
+  // ============ HTML PATH ============
+  {
+    id: "html-l-1", track: "html", topic: "Basics", minutes: 3, title: "Your first page",
+    blocks: [
+      { type: "text", content: "HTML describes the structure of a web page using tags wrapped in angle brackets." },
+      { type: "code", content: '<!DOCTYPE html>\n<html>\n  <body>\n    <h1>Hello</h1>\n    <p>My first page.</p>\n  </body>\n</html>' },
+    ],
+    practice: { kind: "code", prompt: "Write a level-1 heading containing the word Hello.", expected: "<h1>Hello</h1>", hint: "Open with <h1>, the text, then close with </h1>." },
+  },
+  {
+    id: "html-l-2", track: "html", topic: "Links", minutes: 3, title: "Links & images",
+    blocks: [
+      { type: "text", content: "Use <a href=\"...\"> for links and <img src=\"...\" alt=\"...\"> for images." },
+      { type: "code", content: '<a href="https://example.com">Example</a>\n<img src="cat.jpg" alt="A cat" />' },
+    ],
+    practice: { kind: "code", prompt: 'Write an <a> link to https://example.com with the text  Example .', expected: '<a href="https://example.com">Example</a>', hint: '<a href="https://example.com">Example</a> — href is the URL, text goes between tags.' },
+  },
+  {
+    id: "html-l-3", track: "html", topic: "Forms", minutes: 4, title: "Forms & inputs",
+    blocks: [
+      { type: "text", content: "Forms collect user input. Each <input> has a type and a name." },
+      { type: "code", content: '<form>\n  <input type="email" name="email" />\n  <button type="submit">Send</button>\n</form>' },
+    ],
+    practice: { kind: "code", prompt: "Write a self-closing <input> of type email with name=\"email\".", expected: '<input type="email" name="email" />', acceptable: ['<input type="email" name="email">'], hint: '<input type="email" name="email" />  — attribute order does not matter.' },
+  },
+
+  // ============ JAVASCRIPT PATH ============
+  {
+    id: "js-l-1", track: "javascript", topic: "Basics", minutes: 3, title: "Hello, JS",
+    blocks: [
+      { type: "text", content: "JavaScript runs in browsers and Node.js. console.log prints to the console." },
+      { type: "code", content: 'console.log("Hello, JS");' },
+    ],
+    practice: { kind: "code", prompt: "Print  Hello, JS  using console.log.", expected: 'console.log("Hello, JS");', acceptable: ["console.log('Hello, JS');", 'console.log("Hello, JS")'], hint: 'console.log("Hello, JS");' },
+  },
+  {
+    id: "js-l-2", track: "javascript", topic: "Variables", minutes: 3, title: "let & const",
+    blocks: [
+      { type: "text", content: "Use const for values that never get reassigned, let for ones that do." },
+      { type: "code", content: 'const PI = 3.14;\nlet count = 0;\ncount = count + 1;' },
+    ],
+    practice: { kind: "code", prompt: "Declare a constant called PI with value 3.14.", expected: "const PI = 3.14;", acceptable: ["const PI = 3.14"], hint: "const PI = 3.14;" },
+  },
+  {
+    id: "js-l-3", track: "javascript", topic: "Functions", minutes: 4, title: "Arrow functions",
+    blocks: [
+      { type: "text", content: "Arrow functions are a compact way to write functions. A single expression is returned implicitly." },
+      { type: "code", content: 'const add = (a, b) => a + b;\nconsole.log(add(2, 3));  // 5' },
+    ],
+    practice: { kind: "code", prompt: "Define an arrow function  add  that takes a, b and returns a + b (one line, with const).", expected: "const add = (a, b) => a + b;", acceptable: ["const add = (a, b) => a + b"], hint: "const add = (a, b) => a + b;  — single expression returns implicitly." },
+  },
+
+  // ============ TYPESCRIPT PATH ============
+  {
+    id: "ts-l-1", track: "typescript", topic: "Basics", minutes: 3, title: "Type annotations",
+    blocks: [
+      { type: "text", content: "TypeScript = JavaScript + types. Annotate variables and parameters with : Type." },
+      { type: "code", content: 'let name: string = "Ada";\nfunction greet(n: string): string {\n  return "Hi " + n;\n}' },
+    ],
+    practice: { kind: "code", prompt: "Declare a let variable name typed as string with value \"Ada\" (one line).", expected: 'let name: string = "Ada";', acceptable: ['let name: string = "Ada"'], hint: 'let name: string = "Ada";  — colon then type.' },
+  },
+  {
+    id: "ts-l-2", track: "typescript", topic: "Types", minutes: 4, title: "Interfaces & unions",
+    blocks: [
+      { type: "text", content: "An interface describes the shape of an object. A union allows multiple types." },
+      { type: "code", content: 'interface User { name: string; age: number }\nlet id: string | number = 7;' },
+    ],
+    practice: { kind: "code", prompt: "Write a union type variable id that can be string or number, initialised to 7 (use let).", expected: "let id: string | number = 7;", acceptable: ["let id: string | number = 7"], hint: "let id: string | number = 7;  — | separates the union members." },
+  },
+  {
+    id: "ts-l-3", track: "typescript", topic: "Generics", minutes: 4, title: "Generics",
+    blocks: [
+      { type: "text", content: "Generics let functions and types work with any type while staying type-safe." },
+      { type: "code", content: 'function id<T>(x: T): T { return x; }\nid<number>(5);' },
+    ],
+    practice: { kind: "code", prompt: "Define a generic identity function  id  that takes x of type T and returns T.", expected: "function id<T>(x: T): T { return x; }", hint: "function id<T>(x: T): T { return x; }  — type parameter goes in <>." },
+  },
+
+  // ============ SQL PATH ============
+  {
+    id: "sql-l-1", track: "sql", topic: "Basics", minutes: 3, title: "SELECT",
+    blocks: [
+      { type: "text", content: "SQL queries data from tables. The basic shape is SELECT columns FROM table." },
+      { type: "code", content: 'SELECT name, age FROM users;' },
+    ],
+    practice: { kind: "code", prompt: "Select every column from the users table.", expected: "SELECT * FROM users;", acceptable: ["SELECT * FROM users"], hint: "SELECT * FROM users;  — * means all columns." },
+  },
+  {
+    id: "sql-l-2", track: "sql", topic: "Filter", minutes: 4, title: "WHERE",
+    blocks: [
+      { type: "text", content: "WHERE filters rows based on a condition." },
+      { type: "code", content: "SELECT * FROM users WHERE age >= 18;" },
+    ],
+    practice: { kind: "code", prompt: "Select all users older than 18 (age > 18).", expected: "SELECT * FROM users WHERE age > 18;", acceptable: ["SELECT * FROM users WHERE age > 18"], hint: "SELECT * FROM users WHERE age > 18;" },
+  },
+  {
+    id: "sql-l-3", track: "sql", topic: "Joins", minutes: 5, title: "INNER JOIN",
+    blocks: [
+      { type: "text", content: "JOIN combines rows from two tables using a relationship." },
+      { type: "code", content: 'SELECT u.name, o.total\nFROM users u\nINNER JOIN orders o ON o.user_id = u.id;' },
+    ],
+    practice: { kind: "code", prompt: "Write the INNER JOIN clause that links orders.user_id to users.id (start with  INNER JOIN orders ).", expected: "INNER JOIN orders ON orders.user_id = users.id", hint: "INNER JOIN orders ON orders.user_id = users.id" },
+  },
+
+  // ============ GO PATH ============
+  {
+    id: "go-l-1", track: "go", topic: "Basics", minutes: 4, title: "Hello, Go",
+    blocks: [
+      { type: "text", content: "Every Go file declares its package. main is the entry program." },
+      { type: "code", content: 'package main\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, Go")\n}' },
+    ],
+    practice: { kind: "code", prompt: "Write the line that prints  Hello, Go  using fmt.Println.", expected: 'fmt.Println("Hello, Go")', hint: 'fmt.Println("Hello, Go")  — no semicolons in Go.' },
+  },
+  {
+    id: "go-l-2", track: "go", topic: "Variables", minutes: 3, title: ":= short declaration",
+    blocks: [
+      { type: "text", content: "Inside functions, := declares and infers a type in one go." },
+      { type: "code", content: 'name := "Ada"\nage := 25' },
+    ],
+    practice: { kind: "code", prompt: "Use the short declaration to set age to 25.", expected: "age := 25", hint: "age := 25  — colon-equals." },
+  },
+  {
+    id: "go-l-3", track: "go", topic: "Concurrency", minutes: 4, title: "Goroutines",
+    blocks: [
+      { type: "text", content: "Prefix any function call with  go  to run it concurrently as a goroutine." },
+      { type: "code", content: 'go sayHi()' },
+    ],
+    practice: { kind: "code", prompt: "Launch sayHi() as a goroutine (one line).", expected: "go sayHi()", hint: "go sayHi()  — just the word go before the call." },
+  },
+
+  // ============ RUST PATH ============
+  {
+    id: "rs-l-1", track: "rust", topic: "Basics", minutes: 4, title: "Hello, Rust",
+    blocks: [
+      { type: "text", content: "Rust programs start in fn main(). println! is a macro (note the !)." },
+      { type: "code", content: 'fn main() {\n    println!("Hello, Rust");\n}' },
+    ],
+    practice: { kind: "code", prompt: "Write the println! line that prints  Hello, Rust .", expected: 'println!("Hello, Rust");', hint: 'println!("Hello, Rust");  — macros end with ! and the statement with ;' },
+  },
+  {
+    id: "rs-l-2", track: "rust", topic: "Variables", minutes: 4, title: "let & mut",
+    blocks: [
+      { type: "text", content: "let bindings are immutable by default. Add  mut  to allow reassignment." },
+      { type: "code", content: 'let x = 5;\nlet mut y = 0;\ny = y + 1;' },
+    ],
+    practice: { kind: "code", prompt: "Declare a mutable variable count initialised to 0.", expected: "let mut count = 0;", hint: "let mut count = 0;  — keyword mut between let and the name." },
+  },
+  {
+    id: "rs-l-3", track: "rust", topic: "Ownership", minutes: 5, title: "Borrowing",
+    blocks: [
+      { type: "text", content: "Pass an immutable reference with &value to let a function read without taking ownership." },
+      { type: "code", content: 'fn len(s: &String) -> usize { s.len() }\nlet s = String::from("hi");\nlen(&s);' },
+    ],
+    practice: { kind: "code", prompt: "Call len passing an immutable reference to s.", expected: "len(&s);", hint: "len(&s);  — & creates an immutable borrow." },
+  },
+
+  // ============ SWIFT PATH ============
+  {
+    id: "sw-l-1", track: "swift", topic: "Basics", minutes: 3, title: "Hello, Swift",
+    blocks: [
+      { type: "text", content: "Swift uses print() to write to the console. No semicolons needed." },
+      { type: "code", content: 'print("Hello, Swift")' },
+    ],
+    practice: { kind: "code", prompt: "Print  Hello, Swift  using print().", expected: 'print("Hello, Swift")', hint: 'print("Hello, Swift")' },
+  },
+  {
+    id: "sw-l-2", track: "swift", topic: "Variables", minutes: 3, title: "let & var",
+    blocks: [
+      { type: "text", content: "let creates a constant. var creates a variable you can reassign." },
+      { type: "code", content: 'let pi = 3.14\nvar count = 0\ncount = count + 1' },
+    ],
+    practice: { kind: "code", prompt: "Declare a constant pi set to 3.14.", expected: "let pi = 3.14", hint: "let pi = 3.14  — let = constant in Swift." },
+  },
+  {
+    id: "sw-l-3", track: "swift", topic: "Optionals", minutes: 4, title: "Optionals",
+    blocks: [
+      { type: "text", content: "An Optional<T>, written T?, may hold a value or be nil." },
+      { type: "code", content: 'var name: String? = nil\nname = "Ada"' },
+    ],
+    practice: { kind: "code", prompt: "Declare a variable name of type String? initialised to nil.", expected: "var name: String? = nil", hint: "var name: String? = nil  — the ? makes the type optional." },
+  },
 ];
+
 
 export function lessonsFor(track: Track | "mixed"): Lesson[] {
   if (track === "mixed") return LESSONS;

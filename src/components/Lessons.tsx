@@ -3,8 +3,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, Clock, Code2, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-react";
+import { Check, Clock, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-react";
 import { practiceMatches, type Lesson } from "@/lib/lessons";
+import { trackLabel } from "@/lib/tracks";
 
 export function LessonView({
   lesson,
@@ -50,7 +51,7 @@ export function LessonView({
       </button>
       <div className="flex flex-wrap items-center gap-2">
         <Badge variant="secondary" className="uppercase tracking-wider">
-          {lesson.track === "python" ? "Python" : "CAD"}
+          {trackLabel(lesson.track)}
         </Badge>
         <Badge variant="outline">{lesson.topic}</Badge>
         <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
@@ -221,7 +222,6 @@ export function LessonList({
               <div className="flex items-center gap-2">
                 <span className="truncate text-sm font-semibold">{l.title}</span>
                 <Badge variant="outline" className="shrink-0 text-[10px]">
-                  {l.track === "python" ? <Code2 className="mr-1 h-2.5 w-2.5" /> : null}
                   {l.topic}
                 </Badge>
               </div>
