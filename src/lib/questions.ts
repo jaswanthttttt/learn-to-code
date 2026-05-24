@@ -316,6 +316,9 @@ export const QUESTIONS: Question[] = [
   { id: "sw-2", track: "swift", topic: "Optionals", difficulty: 2, prompt: "Type meaning 'String or nil'?", choices: ["String", "String?", "String!", "Optional[String]"], answer: 1, explanation: "String? is shorthand for Optional<String>." },
   { id: "sw-3", track: "swift", topic: "Functions", difficulty: 2, prompt: "Return-type syntax for Int:", choices: ["func f(): Int", "func f() -> Int", "func f() => Int", "Int func f()"], answer: 1, explanation: "Swift uses -> for return types." },
   { id: "sw-4", track: "swift", topic: "Closures", difficulty: 3, prompt: "Trailing closure syntax goes…", choices: ["before the call", "outside the parens after the call", "inside [ ]", "in a separate file"], answer: 1, explanation: "Last closure arg can move outside ()." },
+];
+
+
 
 
 export const RANKS = [
