@@ -5,8 +5,9 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { QUESTIONS, RANKS, getRank, type Question, type Track } from "@/lib/questions";
 import { LESSONS, lessonsFor, type Lesson } from "@/lib/lessons";
+import { ALL_TRACKS, trackLabel } from "@/lib/tracks";
 import { LessonView, LessonList } from "@/components/Lessons";
-import { Check, X, Flame, Sparkles, Trophy, Code2, Ruler, BookOpen, Swords } from "lucide-react";
+import { Check, X, Flame, Sparkles, Trophy, BookOpen, Swords } from "lucide-react";
 
 type SaveState = {
   xp: number;
