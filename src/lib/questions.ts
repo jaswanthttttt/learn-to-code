@@ -1,4 +1,16 @@
-export type Track = "python" | "cad";
+export type Track =
+  | "python"
+  | "cad"
+  | "c"
+  | "cpp"
+  | "java"
+  | "html"
+  | "javascript"
+  | "typescript"
+  | "sql"
+  | "go"
+  | "rust"
+  | "swift";
 
 export interface Question {
   id: string;
