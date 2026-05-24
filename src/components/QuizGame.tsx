@@ -222,7 +222,7 @@ export function QuizGame() {
           <Card className="border-border/60 bg-card/70 p-6 backdrop-blur">
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <Badge variant="secondary" className="uppercase tracking-wider">
-                {current.track === "python" ? "Python" : "CAD"}
+                {trackLabel(current.track)}
               </Badge>
               <Badge variant="outline">{current.topic}</Badge>
               <Badge className="bg-gradient-accent text-accent-foreground">
