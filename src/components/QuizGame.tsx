@@ -179,8 +179,9 @@ export function QuizGame() {
           {mode === "quiz" && (
             <TrackBtn active={track === "mixed"} onClick={() => setTrack("mixed")} label="Mixed" />
           )}
-          <TrackBtn active={track === "python"} onClick={() => setTrack("python")} label="Python" icon={<Code2 className="h-3.5 w-3.5" />} />
-          <TrackBtn active={track === "cad"} onClick={() => setTrack("cad")} label="CAD" icon={<Ruler className="h-3.5 w-3.5" />} />
+          {ALL_TRACKS.map(t => (
+            <TrackBtn key={t} active={track === t} onClick={() => setTrack(t)} label={trackLabel(t)} />
+          ))}
         </div>
 
         {/* LEARN MODE */}
