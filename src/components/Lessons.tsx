@@ -222,7 +222,6 @@ export function LessonList({
               <div className="flex items-center gap-2">
                 <span className="truncate text-sm font-semibold">{l.title}</span>
                 <Badge variant="outline" className="shrink-0 text-[10px]">
-                  {l.track === "python" ? <Code2 className="mr-1 h-2.5 w-2.5" /> : null}
                   {l.topic}
                 </Badge>
               </div>
