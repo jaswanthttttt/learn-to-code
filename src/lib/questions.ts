@@ -256,7 +256,67 @@ export const QUESTIONS: Question[] = [
     answer: 1,
     explanation: "G00 = rapid, G01 = linear interpolation at feedrate.",
   },
-];
+
+  // ---------- C ----------
+  { id: "c-1", track: "c", topic: "Basics", difficulty: 1, prompt: "Which header is needed for printf?", choices: ["<stdlib.h>", "<stdio.h>", "<string.h>", "<math.h>"], answer: 1, explanation: "printf lives in stdio.h." },
+  { id: "c-2", track: "c", topic: "Types", difficulty: 2, prompt: "Size of int on most modern systems?", choices: ["1 byte", "2 bytes", "4 bytes", "8 bytes"], answer: 2, explanation: "int is typically 4 bytes (32-bit)." },
+  { id: "c-3", track: "c", topic: "Pointers", difficulty: 3, prompt: "What does *p do given int *p?", choices: ["Address of p", "Value pointed to", "Multiplies p", "Declares p"], answer: 1, explanation: "* dereferences a pointer to access the value." },
+  { id: "c-4", track: "c", topic: "Memory", difficulty: 3, prompt: "Which frees heap memory?", choices: ["delete", "free()", "release()", "dealloc()"], answer: 1, explanation: "free() releases memory allocated by malloc/calloc." },
+
+  // ---------- C++ ----------
+  { id: "cpp-1", track: "cpp", topic: "I/O", difficulty: 1, prompt: "How do you print in C++?", choices: ["print()", "printf()", "std::cout << ...", "console.log()"], answer: 2, explanation: "C++ uses std::cout with the << operator." },
+  { id: "cpp-2", track: "cpp", topic: "STL", difficulty: 2, prompt: "Which container is a dynamic array?", choices: ["std::list", "std::vector", "std::set", "std::map"], answer: 1, explanation: "std::vector is a contiguous, resizable array." },
+  { id: "cpp-3", track: "cpp", topic: "OOP", difficulty: 3, prompt: "What does 'virtual' enable?", choices: ["Inlining", "Polymorphism via vtable", "Memory safety", "Templates"], answer: 1, explanation: "virtual methods support runtime polymorphism." },
+  { id: "cpp-4", track: "cpp", topic: "Modern", difficulty: 3, prompt: "auto x = 3.14; — type of x?", choices: ["int", "float", "double", "auto"], answer: 2, explanation: "Floating literals default to double." },
+
+  // ---------- Java ----------
+  { id: "java-1", track: "java", topic: "Basics", difficulty: 1, prompt: "Entry method signature?", choices: ["void main()", "public static void main(String[] args)", "static main(args)", "int main()"], answer: 1, explanation: "JVM looks for public static void main(String[] args)." },
+  { id: "java-2", track: "java", topic: "Types", difficulty: 2, prompt: "Which is NOT a primitive?", choices: ["int", "boolean", "String", "double"], answer: 2, explanation: "String is a class, not a primitive." },
+  { id: "java-3", track: "java", topic: "OOP", difficulty: 2, prompt: "Keyword to inherit a class?", choices: ["implements", "extends", "inherits", "super"], answer: 1, explanation: "extends is used for class inheritance." },
+  { id: "java-4", track: "java", topic: "Collections", difficulty: 3, prompt: "Which is an ordered, indexable list?", choices: ["HashSet", "ArrayList", "HashMap", "TreeMap"], answer: 1, explanation: "ArrayList offers indexed access." },
+
+  // ---------- HTML ----------
+  { id: "html-1", track: "html", topic: "Basics", difficulty: 1, prompt: "Tag for the largest heading?", choices: ["<head>", "<h6>", "<h1>", "<heading>"], answer: 2, explanation: "<h1> is the top-level heading." },
+  { id: "html-2", track: "html", topic: "Links", difficulty: 1, prompt: "Attribute for a hyperlink URL?", choices: ["src", "href", "link", "url"], answer: 1, explanation: "<a href=\"...\"> sets the link target." },
+  { id: "html-3", track: "html", topic: "Forms", difficulty: 2, prompt: "Input type for an email field?", choices: ["text", "mail", "email", "string"], answer: 2, explanation: "type=\"email\" gives validation and mobile keyboards." },
+  { id: "html-4", track: "html", topic: "Semantic", difficulty: 2, prompt: "Which tag marks the main content?", choices: ["<div>", "<main>", "<section>", "<body>"], answer: 1, explanation: "<main> denotes the dominant content of a document." },
+
+  // ---------- JavaScript ----------
+  { id: "js-1", track: "javascript", topic: "Basics", difficulty: 1, prompt: "Which declares a block-scoped variable?", choices: ["var", "let", "def", "dim"], answer: 1, explanation: "let (and const) are block-scoped; var is function-scoped." },
+  { id: "js-2", track: "javascript", topic: "Types", difficulty: 2, prompt: "typeof null returns?", choices: ["'null'", "'object'", "'undefined'", "'number'"], answer: 1, explanation: "Famous quirk: typeof null === 'object'." },
+  { id: "js-3", track: "javascript", topic: "Functions", difficulty: 2, prompt: "Shortest arrow function returning x*2?", choices: ["x => x*2", "function(x){x*2}", "(x){return x*2}", "=> x*2"], answer: 0, explanation: "Single-expression arrows return implicitly." },
+  { id: "js-4", track: "javascript", topic: "Async", difficulty: 3, prompt: "await can only be used inside…", choices: ["any function", "async functions or top-level modules", "Promises", "generators"], answer: 1, explanation: "await needs async context (or top-level in modules)." },
+
+  // ---------- TypeScript ----------
+  { id: "ts-1", track: "typescript", topic: "Basics", difficulty: 1, prompt: "Annotate a string parameter:", choices: ["name: string", "string name", "name as string", "name :: string"], answer: 0, explanation: "TS uses identifier: Type." },
+  { id: "ts-2", track: "typescript", topic: "Types", difficulty: 2, prompt: "Which represents 'string OR number'?", choices: ["string & number", "string | number", "string + number", "Union<string,number>"], answer: 1, explanation: "| is a union type." },
+  { id: "ts-3", track: "typescript", topic: "Generics", difficulty: 3, prompt: "function id<T>(x: T): T { return x } — what is T?", choices: ["A class", "A type parameter", "An interface", "Any value"], answer: 1, explanation: "T is a generic type parameter." },
+  { id: "ts-4", track: "typescript", topic: "Tooling", difficulty: 2, prompt: "Which compiles TS to JS?", choices: ["node", "tsc", "babel-only", "esm"], answer: 1, explanation: "tsc is the TypeScript compiler." },
+
+  // ---------- SQL ----------
+  { id: "sql-1", track: "sql", topic: "Basics", difficulty: 1, prompt: "Read all rows from users:", choices: ["GET * FROM users", "SELECT * FROM users", "READ users", "FETCH users"], answer: 1, explanation: "SELECT * FROM table." },
+  { id: "sql-2", track: "sql", topic: "Filter", difficulty: 2, prompt: "Keyword that filters rows?", choices: ["IF", "WHERE", "HAVING ONLY", "FILTER"], answer: 1, explanation: "WHERE filters rows; HAVING filters groups." },
+  { id: "sql-3", track: "sql", topic: "Joins", difficulty: 3, prompt: "Default JOIN type when you write just 'JOIN'?", choices: ["LEFT", "RIGHT", "INNER", "FULL"], answer: 2, explanation: "Bare JOIN is INNER JOIN." },
+  { id: "sql-4", track: "sql", topic: "Aggregates", difficulty: 2, prompt: "Count rows in a table?", choices: ["LEN(*)", "COUNT(*)", "SIZE()", "TOTAL()"], answer: 1, explanation: "COUNT(*) returns row count." },
+
+  // ---------- Go ----------
+  { id: "go-1", track: "go", topic: "Basics", difficulty: 1, prompt: "Print Hello in Go uses which package?", choices: ["console", "fmt", "io", "log"], answer: 1, explanation: "fmt.Println(\"Hello\")." },
+  { id: "go-2", track: "go", topic: "Types", difficulty: 2, prompt: "Short variable declaration operator?", choices: ["=", ":=", "let", "var :="], answer: 1, explanation: ":= declares and infers the type." },
+  { id: "go-3", track: "go", topic: "Concurrency", difficulty: 3, prompt: "Keyword to start a goroutine?", choices: ["async", "go", "spawn", "thread"], answer: 1, explanation: "go funcCall() launches a goroutine." },
+  { id: "go-4", track: "go", topic: "Errors", difficulty: 2, prompt: "Go signals errors via…", choices: ["exceptions", "return values", "panics only", "callbacks"], answer: 1, explanation: "Functions return (value, error)." },
+
+  // ---------- Rust ----------
+  { id: "rs-1", track: "rust", topic: "Basics", difficulty: 1, prompt: "Variables are immutable by default. Make mutable with…", choices: ["var", "let mut", "mutable let", "const"], answer: 1, explanation: "let mut x = ...;" },
+  { id: "rs-2", track: "rust", topic: "Ownership", difficulty: 3, prompt: "Borrow a value immutably with…", choices: ["@x", "&x", "*x", "ref x"], answer: 1, explanation: "&x creates an immutable reference." },
+  { id: "rs-3", track: "rust", topic: "Types", difficulty: 2, prompt: "Owned, heap-allocated string type?", choices: ["str", "&str", "String", "CString"], answer: 2, explanation: "String is the growable, owned string." },
+  { id: "rs-4", track: "rust", topic: "Errors", difficulty: 3, prompt: "Idiomatic recoverable-error type?", choices: ["Option<T>", "Result<T,E>", "Error", "Try<T>"], answer: 1, explanation: "Result<T,E> represents Ok(T) or Err(E)." },
+
+  // ---------- Swift ----------
+  { id: "sw-1", track: "swift", topic: "Basics", difficulty: 1, prompt: "Declare a constant in Swift:", choices: ["const x = 1", "let x = 1", "val x = 1", "final x = 1"], answer: 1, explanation: "let = constant, var = variable." },
+  { id: "sw-2", track: "swift", topic: "Optionals", difficulty: 2, prompt: "Type meaning 'String or nil'?", choices: ["String", "String?", "String!", "Optional[String]"], answer: 1, explanation: "String? is shorthand for Optional<String>." },
+  { id: "sw-3", track: "swift", topic: "Functions", difficulty: 2, prompt: "Return-type syntax for Int:", choices: ["func f(): Int", "func f() -> Int", "func f() => Int", "Int func f()"], answer: 1, explanation: "Swift uses -> for return types." },
+  { id: "sw-4", track: "swift", topic: "Closures", difficulty: 3, prompt: "Trailing closure syntax goes…", choices: ["before the call", "outside the parens after the call", "inside [ ]", "in a separate file"], answer: 1, explanation: "Last closure arg can move outside ()." },
+
 
 export const RANKS = [
   { name: "Novice Drafter", min: 0, color: "oklch(0.7 0.05 250)" },
