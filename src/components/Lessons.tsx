@@ -51,7 +51,7 @@ export function LessonView({
       </button>
       <div className="flex flex-wrap items-center gap-2">
         <Badge variant="secondary" className="uppercase tracking-wider">
-          {lesson.track === "python" ? "Python" : "CAD"}
+          {trackLabel(lesson.track)}
         </Badge>
         <Badge variant="outline">{lesson.topic}</Badge>
         <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
