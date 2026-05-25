@@ -11,5 +11,13 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
+    // Prerender the SPA shell so Netlify static hosting has an index.html.
+    // All client-side navigation is handled by TanStack Router + the SPA fallback in netlify.toml.
+    prerender: {
+      enabled: true,
+      crawlLinks: false,
+      pages: [{ path: "/" }],
+    },
+    spa: { enabled: true },
   },
 });
