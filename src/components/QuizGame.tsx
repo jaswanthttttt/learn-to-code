@@ -132,7 +132,7 @@ export function QuizGame() {
                 <Sparkles className="h-5 w-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold tracking-tight">RankForge</h1>
+                <h1 className="text-xl font-bold tracking-tight">Quick Learner</h1>
                 <p className="text-xs text-muted-foreground">Learn Python &amp; CAD from zero. Rank up as you go.</p>
               </div>
             </div>
