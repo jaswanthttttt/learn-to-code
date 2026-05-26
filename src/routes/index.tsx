@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, BookOpen, Trophy, Code2 } from "lucide-react";
 
@@ -25,23 +24,11 @@ function Landing() {
             <span className="text-lg font-bold">Quick Learner</span>
           </div>
           <div className="flex items-center gap-2">
-            <SignedOut>
-              <Link to="/sign-in">
-                <Button variant="ghost" size="sm">Sign in</Button>
-              </Link>
-              <Link to="/sign-up">
-                <Button size="sm" className="bg-gradient-primary text-primary-foreground">Sign up</Button>
-              </Link>
-            </SignedOut>
-            <SignedIn>
-              <Link to="/app">
-                <Button size="sm" className="bg-gradient-primary text-primary-foreground">Open app</Button>
-              </Link>
-              <UserButton afterSignOutUrl="/" />
-            </SignedIn>
+            <Link to="/app">
+              <Button size="sm" className="bg-gradient-primary text-primary-foreground">Start Learning</Button>
+            </Link>
           </div>
         </nav>
-
         <section className="text-center">
           <h1 className="text-balance text-5xl font-bold tracking-tight md:text-6xl">
             Learn coding by <span className="text-gradient-primary">ranking up</span>
@@ -51,23 +38,13 @@ function Landing() {
             Read, practice, prove it — then move on.
           </p>
           <div className="mt-8 flex justify-center gap-3">
-            <SignedOut>
-              <Link to="/sign-up">
-                <Button size="lg" className="bg-gradient-primary text-primary-foreground shadow-glow">
-                  Start learning free →
-                </Button>
-              </Link>
-            </SignedOut>
-            <SignedIn>
-              <Link to="/app">
-                <Button size="lg" className="bg-gradient-primary text-primary-foreground shadow-glow">
-                  Continue learning →
-                </Button>
-              </Link>
-            </SignedIn>
+            <Link to="/app">
+              <Button size="lg" className="bg-gradient-primary text-primary-foreground shadow-glow">
+                Start learning free →
+              </Button>
+            </Link>
           </div>
         </section>
-
         <section className="mt-20 grid gap-4 md:grid-cols-3">
           <Feature icon={<BookOpen className="h-5 w-5" />} title="Read" body="Short lessons you can finish in a few minutes." />
           <Feature icon={<Code2 className="h-5 w-5" />} title="Practice" body="Write code that matches the lesson to unlock the next." />
