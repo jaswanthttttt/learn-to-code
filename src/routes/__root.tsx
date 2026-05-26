@@ -4,9 +4,14 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  HeadContent,
+  Scripts,
 } from "@tanstack/react-router";
+import { ClerkProvider } from "@clerk/clerk-react";
 
-import "../styles.css";
+import appCss from "../styles.css?url";
+
+const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
 
 function NotFoundComponent() {
   return (
@@ -79,21 +84,65 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
     ],
-    links: [],
+    links: [
+      {
+        rel: "stylesheet",
+        href: appCss,
+      },
+    ],
   }),
+  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
+
+function RootShell({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
 
 
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
-  return (
+  const content = (
     <QueryClientProvider client={queryClient}>
       <Outlet />
     </QueryClientProvider>
+  );
+
+  if (!CLERK_PUBLISHABLE_KEY) {
+    return (
+      <>
+        <MissingClerkKeyBanner />
+        {content}
+      </>
+    );
+  }
+
+  return (
+    <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} afterSignOutUrl="/">
+      {content}
+    </ClerkProvider>
+  );
+}
+
+function MissingClerkKeyBanner() {
+  return (
+    <div className="sticky top-0 z-50 bg-yellow-500/90 px-4 py-2 text-center text-xs font-medium text-black">
+      Clerk not configured — set <code className="font-mono">VITE_CLERK_PUBLISHABLE_KEY</code> in your environment (Netlify → Site settings → Environment variables) and rebuild.
+    </div>
   );
 }
