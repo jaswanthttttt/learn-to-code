@@ -7,8 +7,11 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 import appCss from "../styles.css?url";
+
+const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
 
 function NotFoundComponent() {
   return (
