@@ -11,7 +11,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 
 import appCss from "../styles.css?url";
 
-const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
+const CLERK_PUBLISHABLE_KEY = undefined;
 
 function NotFoundComponent() {
   return (
