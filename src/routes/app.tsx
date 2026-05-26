@@ -1,21 +1,11 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import { createFileRoute } from "@tanstack/react-router";
 import { QuizGame } from "@/components/QuizGame";
 
 export const Route = createFileRoute("/app")({
-  component: ProtectedApp,
+  component: App,
   head: () => ({ meta: [{ title: "Quick Learner — App" }] }),
 });
 
-function ProtectedApp() {
-  return (
-    <>
-      <SignedIn>
-        <QuizGame />
-      </SignedIn>
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
-    </>
-  );
+function App() {
+  return <QuizGame />;
 }
