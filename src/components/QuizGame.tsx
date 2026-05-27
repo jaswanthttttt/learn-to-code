@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { QUESTIONS, RANKS, getRank, type Question, type Track } from "@/lib/questions";
 import { LESSONS, lessonsFor, type Lesson } from "@/lib/lessons";
 import { ALL_TRACKS, trackLabel } from "@/lib/tracks";
-import { LessonView, LessonList } from "@/components/Lessons";
+import { LessonList } from "@/components/Lessons";
 import { Check, X, Flame, Sparkles, Trophy, BookOpen, Swords } from "lucide-react";
 
 type SaveState = {
@@ -40,6 +40,11 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 type Mode = "learn" | "quiz";
+
+const LessonView = lazy(async () => {
+  const module = await import("@/components/LessonView");
+  return { default: module.LessonView };
+});
 
 export function QuizGame() {
   const [mode, setMode] = useState<Mode>("learn");
@@ -187,12 +192,14 @@ export function QuizGame() {
         {/* LEARN MODE */}
         {mode === "learn" && (
           activeLesson ? (
-            <LessonView
-              lesson={activeLesson}
-              done={completedSet.has(activeLesson.id)}
-              onComplete={() => completeLesson(activeLesson)}
-              onBack={() => setActiveLesson(null)}
-            />
+            <Suspense fallback={<LessonLoadingCard />}>
+              <LessonView
+                lesson={activeLesson}
+                done={completedSet.has(activeLesson.id)}
+                onComplete={() => completeLesson(activeLesson)}
+                onBack={() => setActiveLesson(null)}
+              />
+            </Suspense>
           ) : (
             <Card className="border-border/60 bg-card/70 p-5 backdrop-blur">
               <div className="mb-4 flex items-center justify-between">
@@ -371,5 +378,21 @@ function ModeBtn({ active, onClick, label, icon }: { active: boolean; onClick: (
     >
       {icon}{label}
     </button>
+  );
+}
+
+function LessonLoadingCard() {
+  return (
+    <Card className="border-border/60 bg-card p-6 shadow-sm">
+      <div className="space-y-3">
+        <div className="h-3 w-24 rounded bg-muted" />
+        <div className="h-8 w-2/3 rounded bg-muted" />
+        <div className="space-y-2 pt-2">
+          <div className="h-4 w-full rounded bg-muted/80" />
+          <div className="h-4 w-5/6 rounded bg-muted/80" />
+          <div className="h-4 w-4/6 rounded bg-muted/80" />
+        </div>
+      </div>
+    </Card>
   );
 }
