@@ -46,6 +46,13 @@ function LessonViewComponent({
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const v = e.target.value;
+    const next = Boolean(v.trim());
+    if (next !== hasInput) setHasInput(next);
+    if (status !== "idle") setStatus("idle");
+  };
+
   return (
     <Card className="border-border/60 bg-card p-6 shadow-sm">
       <button onClick={onBack} className="mb-3 text-xs text-muted-foreground hover:text-foreground">
@@ -100,7 +107,7 @@ function LessonViewComponent({
         })}
       </div>
 
-      <div className="mt-8 rounded-xl border border-accent/40 bg-card p-5 shadow-sm" style={{ isolation: "isolate" }}>
+      <div className="mt-8 rounded-xl border border-accent/40 bg-card p-5 shadow-sm">
         <div className="mb-3 flex items-center gap-2">
           <Lock className="h-4 w-4 text-accent" />
           <h3 className="text-sm font-bold uppercase tracking-widest text-accent">Practice to unlock next</h3>
@@ -110,19 +117,25 @@ function LessonViewComponent({
         <textarea
           ref={textareaRef}
           defaultValue={lesson.practice.starter ?? ""}
-          onInput={e => {
-            const v = (e.target as HTMLTextAreaElement).value;
-            const next = Boolean(v.trim());
-            if (next !== hasInput) setHasInput(next);
-            if (status !== "idle") setStatus("idle");
-          }}
+          onChange={handleChange}
           placeholder={lesson.practice.kind === "code" ? "Type your code here..." : "Type your answer..."}
           spellCheck={false}
           rows={lesson.practice.kind === "code" ? 6 : 2}
-          style={{ willChange: "auto", transform: "none" }}
-          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-card px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
-            lesson.practice.kind === "code" ? "font-mono text-sm" : ""
-          } ${status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""}`}
+          style={{
+            width: "100%",
+            marginTop: "12px",
+            padding: "8px 12px",
+            borderRadius: "6px",
+            border: status === "right" ? "1px solid green" : status === "wrong" ? "1px solid red" : "1px solid #444",
+            background: "#1e1e2e",
+            color: "#ffffff",
+            fontSize: "14px",
+            fontFamily: lesson.practice.kind === "code" ? "monospace" : "inherit",
+            minHeight: "60px",
+            display: "block",
+            boxSizing: "border-box",
+            resize: "vertical",
+          }}
         />
 
         {status !== "right" && (
