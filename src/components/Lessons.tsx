@@ -22,7 +22,6 @@ export function LessonView({
   const [showMistake, setShowMistake] = useState(false);
   const [hasInput, setHasInput] = useState(Boolean(lesson.practice.starter?.trim()));
 
-  // Reset state when switching lessons
   useEffect(() => {
     const starter = lesson.practice.starter ?? "";
     if (textareaRef.current) textareaRef.current.value = starter;
@@ -48,7 +47,7 @@ export function LessonView({
   };
 
   return (
-    <Card className="border-border/60 bg-card/70 p-6 backdrop-blur">
+    <Card className="border-border/60 bg-card/70 p-6">
       <button onClick={onBack} className="mb-3 text-xs text-muted-foreground hover:text-foreground">
         ← Back to lessons
       </button>
@@ -101,8 +100,8 @@ export function LessonView({
         })}
       </div>
 
-      {/* ============ PRACTICE GATE ============ */}
-      <div className="mt-8 rounded-xl border border-accent/40 bg-accent/5 p-5">
+      {/* PRACTICE GATE */}
+      <div className="mt-8 rounded-xl border border-accent/40 bg-accent/5 p-5" style={{ isolation: "isolate" }}>
         <div className="mb-3 flex items-center gap-2">
           <Lock className="h-4 w-4 text-accent" />
           <h3 className="text-sm font-bold uppercase tracking-widest text-accent">Practice to unlock next</h3>
@@ -121,7 +120,8 @@ export function LessonView({
           placeholder={lesson.practice.kind === "code" ? "Type your code here..." : "Type your answer..."}
           spellCheck={false}
           rows={lesson.practice.kind === "code" ? 6 : 2}
-          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
+          style={{ willChange: "auto", transform: "none" }}
+          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
             lesson.practice.kind === "code" ? "font-mono text-sm" : ""
           } ${status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""}`}
         />
