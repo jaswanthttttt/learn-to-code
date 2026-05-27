@@ -192,7 +192,7 @@ export function QuizGame() {
         {/* LEARN MODE */}
         {mode === "learn" && (
           activeLesson ? (
-            <Suspense fallback={<LessonLoadingCard />}> 
+            <Suspense fallback={<LessonLoadingCard />}>
               <LessonView
                 lesson={activeLesson}
                 done={completedSet.has(activeLesson.id)}
