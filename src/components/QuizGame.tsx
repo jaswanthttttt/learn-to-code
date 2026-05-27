@@ -42,7 +42,7 @@ function shuffle<T>(arr: T[]): T[] {
 type Mode = "learn" | "quiz";
 
 const LessonView = lazy(async () => {
-  const module = await import("@/components/Lessons");
+  const module = await import("@/components/LessonView");
   return { default: module.LessonView };
 });
 
@@ -378,5 +378,21 @@ function ModeBtn({ active, onClick, label, icon }: { active: boolean; onClick: (
     >
       {icon}{label}
     </button>
+  );
+}
+
+function LessonLoadingCard() {
+  return (
+    <Card className="border-border/60 bg-card p-6 shadow-sm">
+      <div className="space-y-3">
+        <div className="h-3 w-24 rounded bg-muted" />
+        <div className="h-8 w-2/3 rounded bg-muted" />
+        <div className="space-y-2 pt-2">
+          <div className="h-4 w-full rounded bg-muted/80" />
+          <div className="h-4 w-5/6 rounded bg-muted/80" />
+          <div className="h-4 w-4/6 rounded bg-muted/80" />
+        </div>
+      </div>
+    </Card>
   );
 }
