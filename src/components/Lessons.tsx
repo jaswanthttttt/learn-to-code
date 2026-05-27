@@ -109,24 +109,27 @@ export function LessonView({
         </div>
         <p className="text-sm text-foreground/90">{lesson.practice.prompt}</p>
 
-        <Textarea
-          value={input}
-          onChange={e => {
-            setInput(e.target.value);
+        <textarea
+          ref={textareaRef}
+          defaultValue={lesson.practice.starter ?? ""}
+          onInput={e => {
+            const v = (e.target as HTMLTextAreaElement).value;
+            const next = Boolean(v.trim());
+            if (next !== hasInput) setHasInput(next);
             if (status !== "idle") setStatus("idle");
           }}
           placeholder={lesson.practice.kind === "code" ? "Type your code here..." : "Type your answer..."}
           spellCheck={false}
           rows={lesson.practice.kind === "code" ? 6 : 2}
-          className={`mt-3 ${lesson.practice.kind === "code" ? "font-mono text-sm" : ""} ${
-            status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""
-          }`}
+          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
+            lesson.practice.kind === "code" ? "font-mono text-sm" : ""
+          } ${status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""}`}
         />
 
         {status !== "right" && (
           <Button
             onClick={check}
-            disabled={!input.trim()}
+            disabled={!hasInput}
             className="mt-3 w-full bg-gradient-accent text-accent-foreground shadow-glow-accent hover:opacity-90"
           >
             Check my answer
