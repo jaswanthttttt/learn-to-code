@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +6,7 @@ import { Check, Clock, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-r
 import { practiceMatches, type Lesson } from "@/lib/lessons";
 import { trackLabel } from "@/lib/tracks";
 
-export function LessonView({
+function LessonViewComponent({
   lesson,
   done,
   onComplete,
@@ -47,7 +47,7 @@ export function LessonView({
   };
 
   return (
-    <Card className="border-border/60 bg-card/70 p-6">
+    <Card className="border-border/60 bg-card p-6 shadow-sm">
       <button onClick={onBack} className="mb-3 text-xs text-muted-foreground hover:text-foreground">
         ← Back to lessons
       </button>
@@ -101,7 +101,7 @@ export function LessonView({
       </div>
 
       {/* PRACTICE GATE */}
-      <div className="mt-8 rounded-xl border border-accent/40 bg-accent/5 p-5" style={{ isolation: "isolate" }}>
+      <div className="mt-8 rounded-xl border border-accent/40 bg-card p-5 shadow-sm" style={{ isolation: "isolate" }}>
         <div className="mb-3 flex items-center gap-2">
           <Lock className="h-4 w-4 text-accent" />
           <h3 className="text-sm font-bold uppercase tracking-widest text-accent">Practice to unlock next</h3>
@@ -121,7 +121,7 @@ export function LessonView({
           spellCheck={false}
           rows={lesson.practice.kind === "code" ? 6 : 2}
           style={{ willChange: "auto", transform: "none" }}
-          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
+          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-card px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
             lesson.practice.kind === "code" ? "font-mono text-sm" : ""
           } ${status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""}`}
         />
@@ -188,6 +188,8 @@ export function LessonView({
     </Card>
   );
 }
+
+export const LessonView = memo(LessonViewComponent);
 
 export function LessonList({
   lessons,
