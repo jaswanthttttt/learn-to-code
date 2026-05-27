@@ -17,13 +17,16 @@ export function LessonView({
   onComplete: () => void;
   onBack: () => void;
 }) {
-  const [input, setInput] = useState(lesson.practice.starter ?? "");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [status, setStatus] = useState<"idle" | "right" | "wrong">("idle");
   const [showMistake, setShowMistake] = useState(false);
+  const [hasInput, setHasInput] = useState(Boolean(lesson.practice.starter?.trim()));
 
   // Reset state when switching lessons
   useEffect(() => {
-    setInput(lesson.practice.starter ?? "");
+    const starter = lesson.practice.starter ?? "";
+    if (textareaRef.current) textareaRef.current.value = starter;
+    setHasInput(Boolean(starter.trim()));
     setStatus(done ? "right" : "idle");
     setShowMistake(false);
   }, [lesson.id, done]);
@@ -35,7 +38,8 @@ export function LessonView({
   };
 
   const check = () => {
-    if (practiceMatches(input, lesson.practice)) {
+    const value = textareaRef.current?.value ?? "";
+    if (practiceMatches(value, lesson.practice)) {
       setStatus("right");
       setShowMistake(false);
     } else {
