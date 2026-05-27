@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
 import { Check, Clock, Lightbulb, Sparkles, Lock, Eye, BookOpen } from "lucide-react";
 import { practiceMatches, type Lesson } from "@/lib/lessons";
 import { trackLabel } from "@/lib/tracks";
@@ -18,13 +17,16 @@ export function LessonView({
   onComplete: () => void;
   onBack: () => void;
 }) {
-  const [input, setInput] = useState(lesson.practice.starter ?? "");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [status, setStatus] = useState<"idle" | "right" | "wrong">("idle");
   const [showMistake, setShowMistake] = useState(false);
+  const [hasInput, setHasInput] = useState(Boolean(lesson.practice.starter?.trim()));
 
   // Reset state when switching lessons
   useEffect(() => {
-    setInput(lesson.practice.starter ?? "");
+    const starter = lesson.practice.starter ?? "";
+    if (textareaRef.current) textareaRef.current.value = starter;
+    setHasInput(Boolean(starter.trim()));
     setStatus(done ? "right" : "idle");
     setShowMistake(false);
   }, [lesson.id, done]);
@@ -36,7 +38,8 @@ export function LessonView({
   };
 
   const check = () => {
-    if (practiceMatches(input, lesson.practice)) {
+    const value = textareaRef.current?.value ?? "";
+    if (practiceMatches(value, lesson.practice)) {
       setStatus("right");
       setShowMistake(false);
     } else {
@@ -106,24 +109,27 @@ export function LessonView({
         </div>
         <p className="text-sm text-foreground/90">{lesson.practice.prompt}</p>
 
-        <Textarea
-          value={input}
-          onChange={e => {
-            setInput(e.target.value);
+        <textarea
+          ref={textareaRef}
+          defaultValue={lesson.practice.starter ?? ""}
+          onInput={e => {
+            const v = (e.target as HTMLTextAreaElement).value;
+            const next = Boolean(v.trim());
+            if (next !== hasInput) setHasInput(next);
             if (status !== "idle") setStatus("idle");
           }}
           placeholder={lesson.practice.kind === "code" ? "Type your code here..." : "Type your answer..."}
           spellCheck={false}
           rows={lesson.practice.kind === "code" ? 6 : 2}
-          className={`mt-3 ${lesson.practice.kind === "code" ? "font-mono text-sm" : ""} ${
-            status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""
-          }`}
+          className={`mt-3 flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm ${
+            lesson.practice.kind === "code" ? "font-mono text-sm" : ""
+          } ${status === "right" ? "border-success/60" : status === "wrong" ? "border-destructive/60" : ""}`}
         />
 
         {status !== "right" && (
           <Button
             onClick={check}
-            disabled={!input.trim()}
+            disabled={!hasInput}
             className="mt-3 w-full bg-gradient-accent text-accent-foreground shadow-glow-accent hover:opacity-90"
           >
             Check my answer
