@@ -6,6 +6,7 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { ClerkProvider } from "@clerk/clerk-react";
+import "../styles.css";
 
 
 const CLERK_PUBLISHABLE_KEY = undefined;
@@ -89,7 +90,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  if (typeof window !== "undefined") return <>{children}</>;
+  return <div id="root">{children}</div>;
 }
 
 
