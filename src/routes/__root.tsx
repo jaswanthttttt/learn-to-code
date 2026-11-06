@@ -4,9 +4,12 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  HeadContent,
+  Scripts,
 } from "@tanstack/react-router";
 import { ClerkProvider } from "@clerk/clerk-react";
-import "../styles.css";
+
+import appCss from "../styles.css?url";
 
 
 const CLERK_PUBLISHABLE_KEY = undefined;
@@ -82,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
     ],
+    links: [{ rel: "stylesheet", href: appCss }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -90,8 +94,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
-  if (typeof window !== "undefined") return <>{children}</>;
-  return <div id="root">{children}</div>;
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <div id="root">{children}</div>
+        <Scripts />
+      </body>
+    </html>
+  );
 }
 
 
